@@ -421,47 +421,15 @@
     </div>
 
     <script>
-        // Suponiendo que tienes 25 fotos llamadas foto1.jpg, foto2.jpg, ..., foto25.jpg en la carpeta 'fotos'
-        const totalFotos = 25;
-        const photos = [];
-        
-        // Títulos y descripciones más infantiles y divertidas
-        const frasesInfantiles = [
-            { title: "¡Mi primera aventura!", desc: "Explorando el mundo 🌍" },
-            { title: "Jugando con mis juguetes", desc: "Diversión sin límites 🧸" },
-            { title: "Día de parque", desc: "Corriendo libre como el viento 🌪️" },
-            { title: "Mi sonrisa más grande", desc: "Felicidad en estado puro 😊" },
-            { title: "Descubriendo colores", desc: "Todo es más bonito 🎨" },
-            { title: "Con mi familia", desc: "Los mejores momentos 👨‍👩‍👧‍👦" },
-            { title: "Hora de jugar", desc: "La diversión nunca termina 🎮" },
-            { title: "Mi comida favorita", desc: "¡Ñam ñam delicioso! 🍕" },
-            { title: "Aprendiendo cosas nuevas", desc: "Cada día es una aventura 📚" },
-            { title: "Con mis amigos", desc: "Juntos somos imparables 👫" },
-            { title: "Día de playa", desc: "Arena, sol y diversión 🏖️" },
-            { title: "Mi mascota y yo", desc: "Mejores amigos para siempre 🐕" },
-            { title: "Construyendo castillos", desc: "Soy un arquitecto genial 🏰" },
-            { title: "Pintando el mundo", desc: "Artista en acción 🖌️" },
-            { title: "Día de lluvia", desc: "Diversión bajo techo ☔" },
-            { title: "Mi cumpleaños", desc: "¡El día más especial! 🎂" },
-            { title: "Volando cometas", desc: "Tocando las nubes ☁️" },
-            { title: "En el jardín", desc: "Naturaleza y aventuras 🌺" },
-            { title: "Haciendo travesuras", desc: "Soy un pequeño travieso 😈" },
-            { title: "Durmiendo tranquilo", desc: "Dulces sueños 😴" },
-            { title: "Con mi helado", desc: "El sabor de la felicidad 🍦" },
-            { title: "Bailando alegre", desc: "La música me mueve 💃" },
-            { title: "Mi disfraz favorito", desc: "Soy un súper héroe 🦸‍♀️" },
-            { title: "Jugando en casa", desc: "Mi lugar favorito 🏠" },
-            { title: "Gran sonrisa final", desc: "¡Hasta la próxima aventura! 👋" }
+        // Arreglo de fotos usando enlaces de Google Drive
+        const photos = [
+            {
+                src: "https://drive.google.com/uc?export=view&id=1BI9OGwM-a7NH6hQi08tu24T_39nmBn5C",
+                title: "¡Mi primera aventura!",
+                description: "Explorando el mundo 🌍"
+            }
+            // Agrega más fotos siguiendo el mismo formato
         ];
-
-        for (let i = 1; i <= totalFotos; i++) {
-            const frase = frasesInfantiles[i - 1] || { title: `Foto ${i}`, desc: `Momento especial ${i}` };
-            photos.push({
-                src: `fotos/foto${i}.jpg`,
-                title: frase.title,
-                description: frase.desc
-            });
-        }
 
         let currentPhotoIndex = 0;
         const gallery = document.getElementById('gallery');
