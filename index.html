@@ -347,6 +347,27 @@
             transform: scale(1.07);
         }
 
+        /* Estilo para el botón de descargar todas las fotos */
+        #downloadAllBtn {
+            padding: 12px 24px;
+            font-size: 1.2rem;
+            background: linear-gradient(90deg, #1565c0 0%, #2196f3 100%);
+            transform-origin: center;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        #downloadAllBtn:hover {
+            background: linear-gradient(90deg, #0d47a1 0%, #1565c0 100%);
+            transform: scale(1.1);
+            animation: none;
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .header h1 {
@@ -404,6 +425,9 @@
         <div class="header">
             <h1>🎉 Galería de Arthuro Mesa 🎉</h1>
             <p>¡Mis aventuras más divertidas! 🚀✨</p>
+            <button id="downloadAllBtn" class="download-btn" style="margin-top: 20px;">
+                ⬇️ Descargar todas las fotos
+            </button>
         </div>
         
         <div class="gallery" id="gallery"></div>
@@ -656,6 +680,28 @@
             window.open(url, '_blank');
         }
 
+        function downloadAllImages() {
+            // Crear un contenedor invisible para los enlaces
+            const container = document.createElement('div');
+            container.style.display = 'none';
+            document.body.appendChild(container);
+
+            // Agregar un retraso entre descargas para evitar bloqueos
+            photos.forEach((photo, index) => {
+                setTimeout(() => {
+                    const link = document.createElement('a');
+                    link.href = photo.downloadUrl;
+                    link.download = `foto_arthuro_${index + 1}.jpg`;
+                    link.click();
+                }, index * 1000); // 1 segundo de retraso entre cada descarga
+            });
+
+            // Limpiar el contenedor después de 30 segundos
+            setTimeout(() => {
+                container.remove();
+            }, photos.length * 1000 + 1000);
+        }
+
         // Event listeners
         closeBtn.onclick = closeModal;
         prevBtn.onclick = showPrevPhoto;
@@ -676,7 +722,17 @@
         });
 
         // Load gallery on page load
-        document.addEventListener('DOMContentLoaded', loadGallery);
+        document.addEventListener('DOMContentLoaded', () => {
+            loadGallery();
+
+            // Agregar el listener para el nuevo botón
+            const downloadAllBtn = document.getElementById('downloadAllBtn');
+            downloadAllBtn.addEventListener('click', () => {
+                if (confirm('¿Deseas descargar todas las fotos? Esto puede tardar unos minutos.')) {
+                    downloadAllImages();
+                }
+            });
+        });
     </script>
 </body>
 </html>
