@@ -421,10 +421,11 @@
     </div>
 
     <script>
-        // Arreglo de fotos usando enlaces de Google Drive
+        // Modifica el arreglo photos para usar el formato de descarga directo
         const photos = [
             {
-                src: "https://drive.google.com/uc?export=view&id=1BI9OGwM-a7NH6hQi08tu24T_39nmBn5C",
+                src: "https://drive.google.com/thumbnail?id=1BI9OGwM-a7NH6hQi08tu24T_39nmBn5C&sz=w1000",
+                downloadUrl: "https://drive.google.com/uc?export=download&id=1BI9OGwM-a7NH6hQi08tu24T_39nmBn5C",
                 title: "¡Mi primera aventura!",
                 description: "Explorando el mundo 🌍"
             }
@@ -464,7 +465,10 @@
                         <div class="photo-title">${photo.title}</div>
                         <div class="photo-description">${photo.description}</div>
                     </div>
-                    <a href="${photo.src}" download class="download-btn" title="Descargar esta foto">⬇️ Descargar</a>
+                    <a href="${photo.downloadUrl}" 
+                       onclick="downloadImage(event, '${photo.downloadUrl}')" 
+                       class="download-btn" 
+                       title="Descargar esta foto">⬇️ Descargar</a>
                 `;
                 
                 gallery.appendChild(photoItem);
@@ -475,7 +479,8 @@
             currentPhotoIndex = index;
             modal.style.display = 'block';
             modalImg.src = photos[index].src;
-            modalDownloadBtn.href = photos[index].src; // Actualiza el enlace de descarga
+            modalDownloadBtn.href = photos[index].downloadUrl;
+            modalDownloadBtn.onclick = (e) => downloadImage(e, photos[index].downloadUrl);
             document.body.style.overflow = 'hidden';
         }
 
@@ -487,13 +492,19 @@
         function showPrevPhoto() {
             currentPhotoIndex = (currentPhotoIndex - 1 + photos.length) % photos.length;
             modalImg.src = photos[currentPhotoIndex].src;
-            modalDownloadBtn.href = photos[currentPhotoIndex].src;
+            modalDownloadBtn.href = photos[currentPhotoIndex].downloadUrl;
         }
 
         function showNextPhoto() {
             currentPhotoIndex = (currentPhotoIndex + 1) % photos.length;
             modalImg.src = photos[currentPhotoIndex].src;
-            modalDownloadBtn.href = photos[currentPhotoIndex].src;
+            modalDownloadBtn.href = photos[currentPhotoIndex].downloadUrl;
+        }
+
+        // Manejar la descarga de imágenes
+        function downloadImage(e, url) {
+            e.stopPropagation(); // Evita que se abra el modal al hacer clic en el botón
+            window.open(url, '_blank');
         }
 
         // Event listeners
